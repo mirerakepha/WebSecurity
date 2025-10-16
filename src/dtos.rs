@@ -1,5 +1,4 @@
 //data exchange object structure
-
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use utoipa::{IntoParams, ToSchema};
@@ -12,22 +11,22 @@ use crate::models::User;
 //=============== REGISTER ===============
 pub struct RegisterUserDto {
 
-    #[Validate(length(min = 1, message = "name is required"))]
+    #[validate(length(min = 1, message = "name is required"))]
     pub name: String, 
 
     #[validate(
-        length(min = 1, message = "Email is required")
+        length(min = 1, message = "Email is required"),
         email(message = "Email is invalid")
     )]
     pub email: String,
 
-    #[Validate(
-        length(min = 1, message = "Password is Required")
+    #[validate(
+        length(min = 1, message = "Password is required"),
         length(min = 6, message = "Password must be at least 6 characters")
     )]
     pub password: String,
 
-    #[Validate(
+    #[validate(
         length(min = 1, message = "Confirm Password is required"),
         must_match(other = "password", message = "passwords do not match")
     )]
@@ -93,14 +92,14 @@ impl FilterUserDto {
             updated_at: user.updated_at.unwrap(),
         }
     }
-    pub fn filter_user(user: &[User]) -> Vec<FilterUserDto>{
+    pub fn filter_users(user: &[User]) -> Vec<FilterUserDto>{
         user.iter().map(FilterUserDto::filter_user).collect()
     }
 }
 
 
 
-#[derive(Debug, Serialize, Deserialize. ToSchema)]
+#[derive(Debug, Serialize, Deserialize, ToSchema)]
 pub struct UserData {
     pub user: FilterUserDto,
 }
@@ -108,7 +107,7 @@ pub struct UserData {
 
 
 
-#[derive(Debug, Serialize, Deserialize. ToSchema)]
+#[derive(Debug, Serialize, Deserialize, ToSchema)]
 pub struct UserResponseDto {
     pub status: String,
     pub data: UserData,
@@ -117,7 +116,7 @@ pub struct UserResponseDto {
 
 
 
-#[derive(Debug, Serialize, Deserialize. ToSchema)]
+#[derive(Debug, Serialize, Deserialize, ToSchema)]
 pub struct UserListResponseDto {
     pub status: String,
     pub users: Vec<FilterUserDto>,
@@ -126,7 +125,7 @@ pub struct UserListResponseDto {
 
 
 
-#[derive(Debug, Serialize, Deserialize. ToSchema)]
+#[derive(Debug, Serialize, Deserialize, ToSchema)]
 pub struct UserLoginResponseDto {
     pub status: String,
     pub token: String,
@@ -134,9 +133,7 @@ pub struct UserLoginResponseDto {
 
 
 
-
-
-#[derive(Serialize, Deserialize. ToSchema)]
+#[derive(Serialize, Deserialize, ToSchema)]
 pub struct Response {
     pub status: &'static str,
     pub message: String,
