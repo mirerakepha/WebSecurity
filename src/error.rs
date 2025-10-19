@@ -89,7 +89,7 @@ impl HttpError {
     pub fn unique_constraint_violation(message: impl Into<String>) -> Self {
         HttpError {
             message: message.into(),
-            status: 400,
+            status: 409,
         }
     }
     pub fn unauthorized(message: impl Into<String>) -> Self {
@@ -109,7 +109,7 @@ impl HttpError {
                 status: "fail",
                 message: self.message.into(),
             }),
-            400 => HttpResponse::Conflict().json(Response {
+            409 => HttpResponse::Conflict().json(Response {
                 status: "fail",
                 message: self.message.into(),
             }),

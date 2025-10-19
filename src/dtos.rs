@@ -120,7 +120,7 @@ pub struct UserResponseDto {
 pub struct UserListResponseDto {
     pub status: String,
     pub users: Vec<FilterUserDto>,
-    pub result: usize,
+    pub results: usize,
 }
 
 
